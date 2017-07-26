@@ -1,0 +1,69 @@
+<div class="page-header text-center">
+    <h1>{{foto.titulo}}</h1><!-- AE -->
+</div>
+<!-- exibir uma mensagem de fracasso ou sucesso para indicar o status da operação com o servidor -->
+<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+
+<!-- a diretiva ng-submit irá lidar com o evento submit disparado pelo formulario, chamando uma função no angular -->
+<!-- novalidade - desabilita a validação do HTML 5 -->
+<form novalidade name="formulario" class="row" ng-submit="submeter()">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Título</label>
+            <!-- ng-model é uma diretiva bidirecional, que atualiza o $scope no angular -->
+            <!--  a propriedade indicada será criada automaticamente no objeto, sendo assim, se usamos ng-model="foto.titulo", o Angular criará automaticamente em $scope.foto a propriedade titulo, inclusive atribuindo o valor digitado pelo usuário.-->
+            <!-- required - torna os campos obg -->
+            <input name="titulo" class="form-control" ng-model="foto.titulo" required>
+            <!-- ngshow - permite a exibição condicional de elementos na tela
+            	 formulario.$submitted retorna erro qd o formulario for submetido -->
+            <span ng-show="formulario.$submitted && formulario.titulo.$error.required" class="form-control alert-danger"> 
+            	Título obrigatorio
+            </span>
+            <span ng-show="formulario.$submitted && formulario.titulo.$error.maxlength" class="form-control alert-danger">
+                No máximo 20 caracteres!
+            </span>  
+        </div>
+        <div class="form-group">
+            <label>URL</label>
+            <input name="url" class="form-control" ng-model="foto.url" required>
+            <span ng-show="formulario.$submitted && formulario.url.$error.required" class="form-control alert-danger"> 
+            	URL obrigatorio  
+            </span>
+        </div>
+        <div class="form-group">
+            <label>Descrição</label>
+            <textarea name="descricao" class="form-control" ng-model="foto.descricao">
+            </textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Grupo</label>
+            <!-- ng-model é biderecional, tanto ler como escreve -->
+            <!-- foi criado um controller especifico para o select -->
+            <!-- ng-options - diretiva com comportamento parecido com ng-repeat.
+                 na sintaxe, ela diz "grupo._id as grupo.nome" indica que o valor do elemento será o ID do grupo e o que será exibido para seleção será seu nome. O restante "for grupo in grupos" percorrerá a lista de grupos disponibilizada no escopo do controller, construindo cada item de nossa lista. 
+                 tb add outra funcionalidade do angular, deixando a lista em caixa alta -->
+            <select name="grupo" ng-model="foto.grupo" class="form-control" required 
+            ng-controller="GruposController" ng-options="grupo._id as (grupo.nome | uppercase) for grupo in grupos">
+                <option value="">Escolha um grupo</option>
+            </select>
+            <span ng-show="formulario.$submitted && formulario.grupo.$error.required" class="form-control alert-danger">
+                Grupo obrigatório
+            </span>
+
+        </div>
+        <!-- ng-disabled="formulario.$invalid" - valida se todos os dados do formulario estao preenchidos e ativa o
+        	 o botão salvar -->
+        <button type="submit" class="btn btn-primary" ng-disabled="formulario.$invalid">
+            Salvar
+        </button>
+         <!-- diretiva meu-focus que muda o focu do botão -->
+         <!-- focado="focado", tirada para melhoramento -->
+         <a href="/" meu-focus class="btn btn-primary">Voltar</a>
+        <hr>
+    </div>
+    <div class="col-md-6">
+    	<!-- data binding -->
+        <minha-foto url="{{foto.url}}" titulo="{{foto.titulo}}"></minha-foto>
+    </div>
+</form>

@@ -1,0 +1,38 @@
+<div class="jumbotron">
+    <h1 class="text-center">Alurapic</h1>
+</div>
+<!--mensagem de sucesso ou erro de acordo com o resultado da operação-->
+<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+
+<!-- campo de busca -->
+<div class="row">
+    <div class="col-md-12">
+    <form>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <a href="/fotos/new" class="btn btn-primary" type="button"> Nova Foto</a>
+            </span>
+            <!-- ng-model é uma diretiva bidirecional, que atualiza o $scope no angular -->
+            <!-- ng-model-options causa um delay na entrada do usuario -->   
+            <input class="form-control" placeholder="filtrar pelo título da foto" ng-model="filtro" ng-model-options"{ debounce: 500}">
+        </div><!-- fim input-group -->
+    </form>
+    </div> <!-- fim col-md-12 -->
+</div> <!-- fim row -->
+
+    <!-- sintaxe {{ }} - lacunas aberta na view -->
+<div class="row">
+    <!-- filter, interage com a ng-model no filtro das fotos -->
+    <!-- class painel, diretiva de efeito entre Angular e CSS(efeitos.css) -->
+    <!-- ng-repeat - constrói nosso template, repetindo o elemento no qual foi adicionada para a quantidade de elementos da lista, e que podemos dar um apelido para termos acesso ao elemento -->
+    <meu-painel class="col-md-2 painel-animado" ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}">
+            <img class="img-responsive center-block" src="{{foto.url}}" alt="{{foto.titulo}}">
+
+            <a class="btn btn-primary btn-block" href="/fotos/edit/{{foto._id}}">Editar</a>
+            <!-- ngclick - diretiva que chamará a função no controller -->
+            <!--<button class="btn btn-danger btn-block" ng-click="remover(foto)" >Remover</button> -->
+            <!-- criamos uma diretiva para o botao remover e passamos o html para dentro da msm -->
+            <meu-botao-perigo nome="Remover" acao="remover(foto)"></meu-botao-perigo> 
+
+    </meu-painel>
+</div><!-- fim row -->  

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="alurapic">
+    <head>
+        <!-- esconde o # hash da URL -->
+        <base href="/">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Alurapic</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/efeitos.css">
+        <script src="js/lib/angular.min.js"></script>
+        <script src="js/lib/angular-animate.min.js"></script>
+        <!-- responsavel pela rota das paginas hmlt -->
+        <script src="js/lib/angular-route.min.js"></script>
+        <script src="js/lib/angular-resource.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/controllers/fotos-controller.js"></script>
+        <script src="js/controllers/foto-controller.js"></script>
+        <script src="js/controllers/grupos-controller.js"></script>
+        <script src="js/directives/minhas-diretivas.js"></script>
+        <script src="js/services/meus-servicos.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <!-- diretiva que faz o route das paginas -->
+            <ng-view></ng-view>
+
+
+        </div> <!-- fim container -->        
+    </body>
+</html>
